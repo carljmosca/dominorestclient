@@ -5,21 +5,35 @@
  */
 package com.github.ibm.domino.entity;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  *
  * @author moscac
  */
-@XmlRootElement(name = "CalendarEvent")
+@JsonPropertyOrder({
+"href",
+"summary",
+"start",
+"end",
+"class",
+"transparency",
+"sequence",
+"last-modified"
+})
 public class CalendarEvent {
     
     private String href;
     private String summary;
-    @XmlAttribute(name="class")
+    @JsonProperty("class")
     private String clazz;
     private int sequence;
+    private String transparency;
+    @JsonProperty("last-modified")
+    private String lastModified;
+    private EventTime start;
+    private EventTime end;
 
     public String getHref() {
         return href;
@@ -53,10 +67,41 @@ public class CalendarEvent {
         this.sequence = sequence;
     }
 
+    public String getTransparency() {
+        return transparency;
+    }
+
+    public void setTransparency(String transparency) {
+        this.transparency = transparency;
+    }
+
+    public String getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(String lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public EventTime getStart() {
+        return start;
+    }
+
+    public void setStart(EventTime start) {
+        this.start = start;
+    }
+
+    public EventTime getEnd() {
+        return end;
+    }
+
+    public void setEnd(EventTime end) {
+        this.end = end;
+    }
+
     @Override
     public String toString() {
-        return "CalendarEvent{" + "href=" + href + ", summary=" + summary + ", clazz=" + clazz + ", sequence=" + sequence + '}';
+        return "CalendarEvent{" + "href=" + href + ", summary=" + summary + ", clazz=" + clazz + ", sequence=" + sequence + ", transparency=" + transparency + ", lastModified=" + lastModified + ", start=" + start + ", end=" + end + '}';
     }
-    
-    
+
 }
