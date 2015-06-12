@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author moscac
  */
-@XmlRootElement(name = "CalendarOwner")
+@XmlRootElement(name = "owner")
 public class CalendarOwner {
     
     private String owner;

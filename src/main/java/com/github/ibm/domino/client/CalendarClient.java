@@ -25,7 +25,7 @@ public class CalendarClient extends BaseClient {
         ResponseEntity<CalendarWrapper> response = restTemplate.exchange(getResourceUri(), 
                     HttpMethod.GET, getHttpEntity(), CalendarWrapper.class);        
         CalendarWrapper calendars = response.getBody();
-        return calendars.getEvents();
+        return calendars.getCalendars();
         
     }
     

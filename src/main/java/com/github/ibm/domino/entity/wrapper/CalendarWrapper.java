@@ -16,14 +16,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "calendars")
 public class CalendarWrapper {
 
-    private List<Calendar> events;
+    private List<Calendar> calendars;
 
-    public List<Calendar> getEvents() {
-        return events;
+    public List<Calendar> getCalendars() {
+        return calendars;
     }
 
-    public void setEvents(List<Calendar> events) {
-        this.events = events;
+    public void setCalendars(List<Calendar> calendars) {
+        this.calendars = calendars;
     }
 
 
