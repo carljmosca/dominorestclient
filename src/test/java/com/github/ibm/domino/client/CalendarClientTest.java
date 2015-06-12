@@ -43,12 +43,12 @@ public class CalendarClientTest {
     }
 
     private CalendarClient initClient() {
-        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
         CalendarClient client = new CalendarClient();
         client.setAddress(clientConfig.address());
         client.setUsername(clientConfig.username());
         client.setPassword(clientConfig.password());
         client.setDatabase(clientConfig.database());
+        client.setIgnoreHostNameMatching(clientConfig.ignoreHostNameMatching());
         return client;
     }
 

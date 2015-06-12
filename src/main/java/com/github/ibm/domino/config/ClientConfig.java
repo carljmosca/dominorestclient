@@ -19,5 +19,6 @@ public interface ClientConfig extends Config {
     String username();
     String password();
     String database();
+    boolean ignoreHostNameMatching();
     
 }

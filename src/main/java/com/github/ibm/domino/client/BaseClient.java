@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.management.RuntimeErrorException;
+import javax.net.ssl.HttpsURLConnection;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -43,12 +44,10 @@ public class BaseClient {
     private String protocol;
     private String path;
     private String database;
+    private boolean ignoreHostNameMatching;
     protected RestTemplate restTemplate;
 
     public BaseClient() {
-
-//        java.lang.System.setProperty(
-//                "jdk.tls.client.protocols", "SSLv3");
     }
 
     public String getHost() {
@@ -78,6 +77,14 @@ public class BaseClient {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public boolean isIgnoreHostNameMatching() {
+        return ignoreHostNameMatching;
+    }
+
+    public void setIgnoreHostNameMatching(boolean ignoreHostNameMatching) {
+        this.ignoreHostNameMatching = ignoreHostNameMatching;
     }
 
     public String getUsername() {
@@ -151,6 +158,9 @@ public class BaseClient {
 
         if (database == null || database.isEmpty()) {
             throw new RuntimeErrorException(new Error("Database parameter not found"));
+        }
+        if (ignoreHostNameMatching) {
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
         }
 
         StringBuilder p = new StringBuilder();
