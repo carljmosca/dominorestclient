@@ -5,19 +5,30 @@
  */
 package com.github.ibm.domino.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  *
  * @author moscac
  */
+@JsonPropertyOrder({
+"owner",
+"links"
+})
 public class Calendar {
     
-    @XmlAttribute(name = "owner")
+    @JsonProperty("owner")
     private CalendarOwner calendarOwner;
-    @XmlAttribute(name = "links")
+    @JsonProperty("links")
     private List<CalendarLink> calendarLinks;
+    
+    public Calendar() {
+        calendarOwner = new CalendarOwner();
+        calendarLinks = new ArrayList<>();
+    }
 
     public CalendarOwner getCalendarOwner() {
         return calendarOwner;

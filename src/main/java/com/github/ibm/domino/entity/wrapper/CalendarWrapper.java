@@ -6,6 +6,7 @@
 package com.github.ibm.domino.entity.wrapper;
 
 import com.github.ibm.domino.entity.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,6 +19,10 @@ public class CalendarWrapper {
 
     private List<Calendar> calendars;
 
+    public CalendarWrapper() {
+        calendars = new ArrayList<>();
+    }
+    
     public List<Calendar> getCalendars() {
         return calendars;
     }

@@ -146,15 +146,18 @@ public class BaseClient {
     protected void init() throws RuntimeException {
         init(null);
     }
-    
+
     protected void init(String pathSuffix) throws RuntimeException {
 
         if (database == null || database.isEmpty()) {
             throw new RuntimeErrorException(new Error("Database parameter not found"));
         }
-        
-        StringBuilder p = new StringBuilder("/mail");
-        p.append("/").append(database);
+
+        StringBuilder p = new StringBuilder();
+        if (pathSuffix != null && !pathSuffix.isEmpty()) {
+            p.append("/mail");
+            p.append("/").append(database);
+        }
         p.append("/api/calendar");
         if (pathSuffix != null && !pathSuffix.isEmpty()) {
             p.append("/").append(pathSuffix);
@@ -166,7 +169,6 @@ public class BaseClient {
         mapper.registerModule(new Jackson2HalModule());
 
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        //converter.setSupportedMediaTypes(MediaType.parseMediaTypes("application/json"));
         converter.setSupportedMediaTypes(
                 Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM));
         converter.setObjectMapper(mapper);

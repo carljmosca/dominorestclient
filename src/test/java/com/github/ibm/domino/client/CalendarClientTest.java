@@ -64,7 +64,7 @@ public class CalendarClientTest {
         System.out.println("getCalendars");
         CalendarClient instance = initClient();
         List<Calendar> result = instance.getCalendars();
-        assertTrue(result != null && !result.isEmpty());
+        assertTrue(result != null && !result.isEmpty()); // && result.get(0).getCalendarOwner() != null);
         result.stream().forEach((calendar) -> {
             System.out.println(calendar.toString());
         });

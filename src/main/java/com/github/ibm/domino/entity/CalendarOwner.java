@@ -14,19 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "owner")
 public class CalendarOwner {
     
-    private String owner;
     private String displayName;
     private String distinguishedName;
     private String homeServer;
     private String email;
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
 
     public String getDisplayName() {
         return displayName;
@@ -62,7 +53,7 @@ public class CalendarOwner {
 
     @Override
     public String toString() {
-        return "CalendarOwner{" + "owner=" + owner + ", displayName=" + displayName + ", distinguishedName=" + distinguishedName + ", homeServer=" + homeServer + ", email=" + email + '}';
+        return "CalendarOwner{" + "displayName=" + displayName + ", distinguishedName=" + distinguishedName + ", homeServer=" + homeServer + ", email=" + email + '}';
     }
     
 }
