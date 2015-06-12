@@ -9,7 +9,6 @@ import com.github.ibm.domino.config.ClientConfig;
 import com.github.ibm.domino.entity.Calendar;
 import com.github.ibm.domino.entity.CalendarEvent;
 import java.util.List;
-import javax.net.ssl.HttpsURLConnection;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.After;
 import org.junit.AfterClass;
