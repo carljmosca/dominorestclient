@@ -1,4 +1,4 @@
-# dominorestclient
+# Domino REST client
 This library contains convenience methods and classes for the IBM Domino Access Services.
 
 In order to run the unit tests, the configuration file ".dominorestclient.config" should be placed in the user's home directory.
