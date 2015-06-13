@@ -9,10 +9,16 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.management.RuntimeErrorException;
@@ -30,6 +36,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  *
@@ -46,8 +53,12 @@ public class BaseClient {
     private String database;
     private boolean ignoreHostNameMatching;
     protected RestTemplate restTemplate;
+    protected Map<String, String> parameters;
+    protected SimpleDateFormat dateParameterFormat;
 
     public BaseClient() {
+        parameters = new HashMap<>();
+        dateParameterFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
 
     public String getHost() {
@@ -193,7 +204,7 @@ public class BaseClient {
 
     }
 
-    protected String getResourceUri() {
+    protected String getResourceUriString() {
         StringBuilder resourceUri = new StringBuilder();
         if (!"http".equals(protocol) && !"https".equals(protocol)) {
             protocol = "http";
@@ -210,10 +221,37 @@ public class BaseClient {
         return resourceUri.toString();
     }
 
+    protected URI getUri() {
+
+        StringBuilder baseUrl = new StringBuilder();
+        if (!"http".equals(protocol) && !"https".equals(protocol)) {
+            protocol = "http";
+        }
+        baseUrl.append(protocol).append("://").append(host);
+        if (port > 0) {
+            baseUrl.append(":").append(port);
+        }
+        if (!path.startsWith("/")) {
+            baseUrl.append("/");
+        }
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl.toString()).path(path);
+        parameters.entrySet().stream().forEach((parameter) -> {
+            builder.queryParam(parameter.getKey(), parameter.getValue());
+        });
+
+        return builder.build().toUri();
+    }
+
     protected HttpEntity<String> getHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM));
         return new HttpEntity<>(headers);
+    }
+
+    protected String getDateParameter(Date value) {
+        dateParameterFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return dateParameterFormat.format(value);
     }
 
 }

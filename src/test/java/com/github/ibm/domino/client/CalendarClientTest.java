@@ -76,10 +76,14 @@ public class CalendarClientTest {
     public void testGetEvents() {
         System.out.println("getEvents");
         CalendarClient instance = initClient();
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        calendar.add(java.util.Calendar.DATE, -100);
+        instance.since(calendar.getTime());
         List<CalendarEvent> result = instance.getEvents();
         assertTrue(result != null && !result.isEmpty());
         result.stream().forEach((calendarEvent) -> {
             System.out.println(calendarEvent.toString());
+            System.out.println(calendarEvent.getStart().getEventDateTime().toString());
         });
     }
 

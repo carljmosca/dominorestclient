@@ -16,13 +16,19 @@
 package com.github.ibm.domino.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author moscac
  */
 public class EventTime {
-    
+
     @JsonProperty("date")
     private String eDate;
     @JsonProperty("time")
@@ -53,9 +59,26 @@ public class EventTime {
         this.utc = utc;
     }
 
+    public Date getEventDateTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        String timeZone;
+        if (isUtc()) {
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            timeZone = "Z";
+        } else {
+            timeZone = TimeZone.getDefault().getID();
+        }
+        try {
+            return sdf.parse(geteDate() + "T" + geteTime() + timeZone);
+        } catch (ParseException ex) {
+            Logger.getLogger(EventTime.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "EventTime{" + "eDate=" + eDate + ", eTime=" + eTime + ", utc=" + utc + '}';
     }
-    
+
 }
