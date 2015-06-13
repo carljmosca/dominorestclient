@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
 "href",
 "summary",
+"location",
 "start",
 "end",
 "class",
@@ -34,6 +35,12 @@ public class CalendarEvent {
     private String lastModified;
     private EventTime start;
     private EventTime end;
+    private String location;
+    
+    public CalendarEvent() {
+        start = new EventTime();
+        end = new EventTime();
+    }
 
     public String getHref() {
         return href;
@@ -97,6 +104,14 @@ public class CalendarEvent {
 
     public void setEnd(EventTime end) {
         this.end = end;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override

@@ -5,8 +5,10 @@
  */
 package com.github.ibm.domino.client;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -187,6 +189,9 @@ public class BaseClient {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.setSerializationInclusion(Include.NON_NULL);
+//        mapper.configure(SerializationFeature. WRITE_NULL_MAP_VALUES, false);
+        
         mapper.registerModule(new Jackson2HalModule());
 
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -246,6 +251,7 @@ public class BaseClient {
     protected HttpEntity<String> getHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM));
+        headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(headers);
     }
 

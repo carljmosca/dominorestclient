@@ -8,6 +8,7 @@ package com.github.ibm.domino.client;
 import com.github.ibm.domino.config.ClientConfig;
 import com.github.ibm.domino.entity.Calendar;
 import com.github.ibm.domino.entity.CalendarEvent;
+import com.github.ibm.domino.entity.wrapper.CalendarEventsWrapper;
 import java.util.List;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.After;
@@ -16,6 +17,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -85,6 +88,25 @@ public class CalendarClientTest {
             System.out.println(calendarEvent.toString());
             System.out.println(calendarEvent.getStart().getEventDateTime().toString());
         });
+    }
+
+    @Test
+    public void testPostEvents() {
+        System.out.println("postEvents");
+        CalendarClient instance = initClient();
+        CalendarEventsWrapper events = new CalendarEventsWrapper();
+        CalendarEvent event = new CalendarEvent();
+        event.setSummary("This is a new event");
+        event.setLocation("here");
+        event.getStart().seteDate("2015-10-19");
+        event.getStart().seteTime("12:00:00");
+        event.getStart().setUtc(true);
+        event.getEnd().seteDate("2015-10-19");
+        event.getEnd().seteTime("13:00:00");
+        event.getEnd().setUtc(true);
+        events.getEvents().add(event);
+        ResponseEntity<Object> response = instance.postEvent(events);
+        assertTrue(response.getStatusCode().is2xxSuccessful());
     }
 
 }

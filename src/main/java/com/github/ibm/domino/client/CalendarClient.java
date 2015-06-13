@@ -41,6 +41,16 @@ public class CalendarClient extends BaseClient {
         return events.getEvents();
 
     }
+    
+    public ResponseEntity<Object> postEvent(CalendarEventsWrapper events) {
+       
+        init("events");
+        
+        ResponseEntity<Object> result = restTemplate.postForEntity(getUri(), events, Object.class);
+        
+        return result;
+        
+    }
 
     public CalendarClient format(String value) {
         parameters.put("format", value);

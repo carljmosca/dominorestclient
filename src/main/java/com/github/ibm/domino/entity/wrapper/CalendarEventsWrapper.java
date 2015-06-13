@@ -5,19 +5,24 @@
  */
 package com.github.ibm.domino.entity.wrapper;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.ibm.domino.entity.CalendarEvent;
+import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author moscac
  */
 
-@XmlRootElement(name = "events")
 public class CalendarEventsWrapper {
     
+    @JsonProperty("events")
     private List<CalendarEvent> events;
+    
+    public CalendarEventsWrapper() {
+        events = new ArrayList<>();
+    }
 
     public List<CalendarEvent> getEvents() {
         return events;
