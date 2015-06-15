@@ -16,12 +16,10 @@
 package com.github.ibm.domino.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -59,21 +57,19 @@ public class EventTime {
         this.utc = utc;
     }
 
-    public Date getEventDateTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    public ZonedDateTime getEventDateTime() {
+
         String timeZone;
         if (isUtc()) {
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             timeZone = "Z";
         } else {
-            timeZone = TimeZone.getDefault().getID();
+            timeZone = "";
         }
-        try {
-            return sdf.parse(geteDate() + "T" + geteTime() + timeZone);
-        } catch (ParseException ex) {
-            Logger.getLogger(EventTime.class.getName()).log(Level.SEVERE, null, ex);
+        if (geteTime() == null) {
+            return LocalDate.parse(geteDate()).atStartOfDay(ZoneId.systemDefault());
+        } else {
+            return ZonedDateTime.parse(geteDate() + "T" + geteTime() + timeZone);
         }
-        return null;
     }
 
     @Override

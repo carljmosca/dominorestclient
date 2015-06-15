@@ -85,7 +85,7 @@ public class CalendarClientTest {
         assertTrue(result != null && !result.isEmpty());
         result.stream().forEach((calendarEvent) -> {
             System.out.println(calendarEvent.toString());
-            System.out.println(calendarEvent.getStart().getEventDateTime().toString());
+            System.out.println(calendarEvent.getStart().getEventDateTime());
         });
     }
 
