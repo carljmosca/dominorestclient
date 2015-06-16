@@ -7,7 +7,7 @@ package com.github.ibm.domino;
 
 import com.github.ibm.domino.client.DominoRestClient;
 import com.github.ibm.domino.config.ClientConfig;
-import com.github.ibm.domino.entity.CalendarEvent;
+import com.github.ibm.domino.resource.CalendarEvent;
 import java.util.List;
 import org.aeonbits.owner.ConfigFactory;
 

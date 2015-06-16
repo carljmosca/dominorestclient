@@ -6,9 +6,9 @@
 package com.github.ibm.domino.client;
 
 import com.github.ibm.domino.config.ClientConfig;
-import com.github.ibm.domino.entity.Calendar;
-import com.github.ibm.domino.entity.CalendarEvent;
-import com.github.ibm.domino.entity.wrapper.CalendarEventsWrapper;
+import com.github.ibm.domino.resource.Calendar;
+import com.github.ibm.domino.resource.CalendarEvent;
+import com.github.ibm.domino.resource.wrapper.CalendarEventsWrapper;
 import java.util.List;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.After;

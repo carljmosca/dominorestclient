@@ -5,10 +5,10 @@
  */
 package com.github.ibm.domino.client;
 
-import com.github.ibm.domino.entity.Calendar;
-import com.github.ibm.domino.entity.CalendarEvent;
-import com.github.ibm.domino.entity.wrapper.CalendarEventsWrapper;
-import com.github.ibm.domino.entity.wrapper.CalendarWrapper;
+import com.github.ibm.domino.resource.Calendar;
+import com.github.ibm.domino.resource.CalendarEvent;
+import com.github.ibm.domino.resource.wrapper.CalendarEventsWrapper;
+import com.github.ibm.domino.resource.wrapper.CalendarWrapper;
 import java.util.Date;
 import java.util.List;
 import org.springframework.http.HttpMethod;
