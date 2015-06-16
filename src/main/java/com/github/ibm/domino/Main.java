@@ -5,7 +5,7 @@
  */
 package com.github.ibm.domino;
 
-import com.github.ibm.domino.client.CalendarClient;
+import com.github.ibm.domino.client.DominoRestClient;
 import com.github.ibm.domino.config.ClientConfig;
 import com.github.ibm.domino.entity.CalendarEvent;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Main {
     
     public static void main(String[] args) {
                 
-        CalendarClient client = new CalendarClient();
+        DominoRestClient client = new DominoRestClient();
         ClientConfig clientConfig = ConfigFactory.create(ClientConfig.class);
         client.setAddress(clientConfig.address());
         client.setUsername(clientConfig.username());

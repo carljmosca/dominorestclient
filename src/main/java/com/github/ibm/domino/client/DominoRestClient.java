@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
  *
  * @author moscac
  */
-public class CalendarClient extends BaseClient {
+public class DominoRestClient extends BaseClient {
 
     public List<Calendar> getCalendars() {
 
@@ -51,28 +51,37 @@ public class CalendarClient extends BaseClient {
         return result;
         
     }
+    
+//    public ResponseEntity<Object> putEvent(CalendarEventsWrapper events) {
+//        
+//        init("events");
+//        
+////        ResponseEntity<Object> result = restTemplate.p
+//        
+//        return result;
+//    }
 
-    public CalendarClient format(String value) {
+    public DominoRestClient format(String value) {
         parameters.put("format", value);
         return this;
     }
 
-    public CalendarClient since(Date value) {
+    public DominoRestClient since(Date value) {
         parameters.put("since", getDateParameter(value));
         return this;
     }
 
-    public CalendarClient before(Date value) {
+    public DominoRestClient before(Date value) {
         parameters.put("before", getDateParameter(value));
         return this;
     }
 
-    public CalendarClient count(Integer value) {
+    public DominoRestClient count(Integer value) {
         parameters.put("count", value.toString());
         return this;
     }
 
-    public CalendarClient start(Integer value) {
+    public DominoRestClient start(Integer value) {
         parameters.put("start", value.toString());
         return this;
     }

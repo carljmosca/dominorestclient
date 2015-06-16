@@ -43,8 +43,8 @@ public class CalendarClientTest {
         clientConfig = ConfigFactory.create(ClientConfig.class);
     }
 
-    private CalendarClient initClient() {
-        CalendarClient client = new CalendarClient();
+    private DominoRestClient initClient() {
+        DominoRestClient client = new DominoRestClient();
         client.setAddress(clientConfig.address());
         client.setUsername(clientConfig.username());
         client.setPassword(clientConfig.password());
@@ -63,7 +63,7 @@ public class CalendarClientTest {
     @Test
     public void testGetCalendars() {
         System.out.println("getCalendars");
-        CalendarClient instance = initClient();
+        DominoRestClient instance = initClient();
         List<Calendar> result = instance.getCalendars();
         assertTrue(result != null && !result.isEmpty()); // && result.get(0).getCalendarOwner() != null);
         result.stream().forEach((calendar) -> {
@@ -77,7 +77,7 @@ public class CalendarClientTest {
     @Test
     public void testGetEvents() {
         System.out.println("getEvents");
-        CalendarClient instance = initClient();
+        DominoRestClient instance = initClient();
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         calendar.add(java.util.Calendar.DATE, -100);
         instance.since(calendar.getTime());
@@ -92,7 +92,7 @@ public class CalendarClientTest {
     @Test
     public void testPostEvents() {
         System.out.println("postEvents");
-        CalendarClient instance = initClient();
+        DominoRestClient instance = initClient();
         CalendarEventsWrapper events = new CalendarEventsWrapper();
         CalendarEvent event = new CalendarEvent();
         event.setSummary("This is a new event");
