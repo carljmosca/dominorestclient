@@ -72,7 +72,10 @@ public class EventTime {
     }
 
     public void setDateTime(ZonedDateTime zonedDateTime) {
-        
+        String s = zonedDateTime.withZoneSameInstant(ZoneId.of("GMT")).toString();
+        seteDate(s.substring(0, 10));
+        seteTime(s.substring(11, 19));
+        setUtc(true);
     }
     
     @Override

@@ -12,14 +12,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.management.RuntimeErrorException;
@@ -55,11 +54,13 @@ public class BaseClient {
     private boolean ignoreHostNameMatching;
     protected RestTemplate restTemplate;
     protected Map<String, String> parameters;
-    protected SimpleDateFormat dateParameterFormat;
+    private final String GMT_STRING = "[GMT]";
+    private final String PERIOD = ".";
+    //protected SimpleDateFormat dateParameterFormat;
 
     public BaseClient() {
         parameters = new HashMap<>();
-        dateParameterFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //dateParameterFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
 
     public String getHost() {
@@ -190,7 +191,7 @@ public class BaseClient {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.setSerializationInclusion(Include.NON_NULL);
 //        mapper.configure(SerializationFeature. WRITE_NULL_MAP_VALUES, false);
-        
+
         mapper.registerModule(new Jackson2HalModule());
 
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -226,6 +227,10 @@ public class BaseClient {
     }
 
     protected URI getUri() {
+        return getUri(null);
+    }
+
+    protected URI getUri(String pathParam) {
 
         StringBuilder baseUrl = new StringBuilder();
         if (!"http".equals(protocol) && !"https".equals(protocol)) {
@@ -239,7 +244,8 @@ public class BaseClient {
             baseUrl.append("/");
         }
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl.toString()).path(path);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl.toString()).path(path
+                + (pathParam != null && !pathParam.isEmpty() ? "/" + pathParam : ""));
         parameters.entrySet().stream().forEach((parameter) -> {
             builder.queryParam(parameter.getKey(), parameter.getValue());
         });
@@ -254,9 +260,17 @@ public class BaseClient {
         return new HttpEntity<>(headers);
     }
 
-    protected String getDateParameter(Date value) {
-        dateParameterFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return dateParameterFormat.format(value);
+    protected String getDateParameter(ZonedDateTime value) {
+        StringBuilder sValue = new StringBuilder(value.format(DateTimeFormatter.ISO_DATE_TIME));
+        int i = sValue.indexOf(GMT_STRING);
+        if (i >= 0) {
+            sValue.delete(i, i + GMT_STRING.length());
+        }
+        i = sValue.indexOf(PERIOD);
+        if (i >= 0) {
+            sValue.delete(i, i + 4);
+        }
+        return sValue.toString();
     }
 
 }

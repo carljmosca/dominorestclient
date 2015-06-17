@@ -9,6 +9,8 @@ import com.github.ibm.domino.config.ClientConfig;
 import com.github.ibm.domino.resource.Calendar;
 import com.github.ibm.domino.resource.CalendarEvent;
 import com.github.ibm.domino.resource.wrapper.CalendarEventsWrapper;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.After;
@@ -17,12 +19,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import org.springframework.http.ResponseEntity;
 
 /**
  *
  * @author moscac
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CalendarClientTest {
 
     private ClientConfig clientConfig;
@@ -61,7 +66,7 @@ public class CalendarClientTest {
      * Test of getCalendars method, of class CalendarClient.
      */
     @Test
-    public void testGetCalendars() {
+    public void test0GetCalendars() {
         System.out.println("getCalendars");
         DominoRestClient instance = initClient();
         List<Calendar> result = instance.getCalendars();
@@ -71,16 +76,30 @@ public class CalendarClientTest {
         });
     }
 
+    @Test
+    public void test1PostEvents() {
+        System.out.println("postEvents");
+        DominoRestClient instance = initClient();
+        CalendarEventsWrapper events = new CalendarEventsWrapper();
+        CalendarEvent event = new CalendarEvent();
+        event.setSummary("This is a new event");
+        event.setLocation("here");
+        ZonedDateTime zdt = ZonedDateTime.now().plusDays(10);
+        event.getStart().setDateTime(zdt);
+        event.getEnd().setDateTime(zdt.plusHours(2));
+        events.getEvents().add(event);
+        ResponseEntity<Object> response = instance.postEvent(events);
+        assertTrue(response.getStatusCode().is2xxSuccessful());
+    }
+
     /**
      * Test of getEvents method, of class CalendarClient.
      */
     @Test
-    public void testGetEvents() {
+    public void test2GetEvents() {
         System.out.println("getEvents");
         DominoRestClient instance = initClient();
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        calendar.add(java.util.Calendar.DATE, -100);
-        instance.since(calendar.getTime());
+        instance.since(ZonedDateTime.now());
         List<CalendarEvent> result = instance.getEvents();
         assertTrue(result != null && !result.isEmpty());
         result.stream().forEach((calendarEvent) -> {
@@ -90,22 +109,31 @@ public class CalendarClientTest {
     }
 
     @Test
-    public void testPostEvents() {
-        System.out.println("postEvents");
+    public void test3PutEvents() {
+        System.out.println("putEvents");
+
+    }
+
+    @Test
+    public void test9DeleteEvents() {
+        System.out.println("deleteEvents");
         DominoRestClient instance = initClient();
-        CalendarEventsWrapper events = new CalendarEventsWrapper();
-        CalendarEvent event = new CalendarEvent();
-        event.setSummary("This is a new event");
-        event.setLocation("here");
-        event.getStart().seteDate("2015-10-19");
-        event.getStart().seteTime("12:00:00");
-        event.getStart().setUtc(true);
-        event.getEnd().seteDate("2015-10-19");
-        event.getEnd().seteTime("13:00:00");
-        event.getEnd().setUtc(true);
-        events.getEvents().add(event);
-        ResponseEntity<Object> response = instance.postEvent(events);
-        assertTrue(response.getStatusCode().is2xxSuccessful());
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+
+        List<String> eventIds = new ArrayList<>();
+        eventIds.add("EvEnTiD...wE...DO..not...EXPECT...to...FIND...EVER!!!");
+        List<String> eventsNotDeleted = instance.deleteEvent(eventIds);
+        assertTrue(eventsNotDeleted.size() == 1);
+
+        instance.since(ZonedDateTime.now().minusHours(1));
+        List<CalendarEvent> result = instance.getEvents();
+
+        eventIds.clear();
+        result.stream().forEach((calendarEvent) -> {
+            eventIds.add(calendarEvent.getId());
+        });
+        eventsNotDeleted = instance.deleteEvent(eventIds);
+        assertTrue(eventsNotDeleted.isEmpty());
     }
 
 }
