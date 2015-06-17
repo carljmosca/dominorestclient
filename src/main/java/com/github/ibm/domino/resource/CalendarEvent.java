@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder({
 "href",
+"id",
 "summary",
 "location",
 "start",
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class CalendarEvent {
     
     private String href;
+    private String id;
     private String summary;
     @JsonProperty("class")
     private String clazz;
@@ -114,9 +116,17 @@ public class CalendarEvent {
         this.location = location;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "CalendarEvent{" + "href=" + href + ", summary=" + summary + ", clazz=" + clazz + ", sequence=" + sequence + ", transparency=" + transparency + ", lastModified=" + lastModified + ", start=" + start + ", end=" + end + '}';
+        return "CalendarEvent{" + "href=" + href + ", id=" + id + ", summary=" + summary + ", clazz=" + clazz + ", sequence=" + sequence + ", transparency=" + transparency + ", lastModified=" + lastModified + ", start=" + start + ", end=" + end + ", location=" + location + '}';
     }
 
 }

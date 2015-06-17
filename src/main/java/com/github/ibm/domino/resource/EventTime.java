@@ -71,6 +71,10 @@ public class EventTime {
         }
     }
 
+    public void setDateTime(ZonedDateTime zonedDateTime) {
+        
+    }
+    
     @Override
     public String toString() {
         return "EventTime{" + "eDate=" + eDate + ", eTime=" + eTime + ", utc=" + utc + '}';
