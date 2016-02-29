@@ -99,7 +99,7 @@ public class CalendarClientTest {
     public void test2GetEvents() {
         System.out.println("getEvents");
         DominoRestClient instance = initClient();
-        instance.since(ZonedDateTime.now());
+        instance.since(ZonedDateTime.now().minusDays(10));
         List<CalendarEvent> result = instance.getEvents();
         assertTrue(result != null && !result.isEmpty());
         result.stream().forEach((calendarEvent) -> {
