@@ -13,19 +13,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * @author moscac
  */
 @JsonPropertyOrder({
-"href",
-"id",
-"summary",
-"location",
-"start",
-"end",
-"class",
-"transparency",
-"sequence",
-"last-modified"
+    "href",
+    "id",
+    "summary",
+    "location",
+    "start",
+    "end",
+    "class",
+    "transparency",
+    "sequence",
+    "last-modified"
 })
 public class CalendarEvent {
-    
+
     private String href;
     private String id;
     private String summary;
@@ -38,7 +38,15 @@ public class CalendarEvent {
     private EventTime start;
     private EventTime end;
     private String location;
-    
+    @JsonProperty("x-lotus-organizer")
+    private CalendarEventAttribute organizer;
+    @JsonProperty("x-lotus-summarydataonly")
+    private CalendarEventAttribute summaryDataOnly;
+    @JsonProperty("x-lotus-noticetype")
+    private CalendarEventAttribute noticeType;
+    @JsonProperty("x-lotus-appttype")
+    private CalendarEventAttribute appointmentType;
+
     public CalendarEvent() {
         start = new EventTime();
         end = new EventTime();
@@ -122,6 +130,38 @@ public class CalendarEvent {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public CalendarEventAttribute getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(CalendarEventAttribute organizer) {
+        this.organizer = organizer;
+    }
+
+    public CalendarEventAttribute getSummaryDataOnly() {
+        return summaryDataOnly;
+    }
+
+    public void setSummaryDataOnly(CalendarEventAttribute summaryDataOnly) {
+        this.summaryDataOnly = summaryDataOnly;
+    }
+
+    public CalendarEventAttribute getNoticeType() {
+        return noticeType;
+    }
+
+    public void setNoticeType(CalendarEventAttribute noticeType) {
+        this.noticeType = noticeType;
+    }
+
+    public CalendarEventAttribute getAppointmentType() {
+        return appointmentType;
+    }
+
+    public void setAppointmentType(CalendarEventAttribute appointmentType) {
+        this.appointmentType = appointmentType;
     }
 
     @Override
