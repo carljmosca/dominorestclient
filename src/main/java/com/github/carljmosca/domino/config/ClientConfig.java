@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.ibm.domino.config;
+package com.github.carljmosca.domino.config;
 
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;

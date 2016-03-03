@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.ibm.domino.client;
+package com.github.carljmosca.domino.client;
 
-import com.github.ibm.domino.resource.Calendar;
-import com.github.ibm.domino.resource.CalendarEvent;
-import com.github.ibm.domino.resource.wrapper.CalendarEventsWrapper;
-import com.github.ibm.domino.resource.wrapper.CalendarWrapper;
+import com.github.carljmosca.domino.resource.Calendar;
+import com.github.carljmosca.domino.resource.CalendarEvent;
+import com.github.carljmosca.domino.resource.wrapper.CalendarEventsWrapper;
+import com.github.carljmosca.domino.resource.wrapper.CalendarWrapper;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

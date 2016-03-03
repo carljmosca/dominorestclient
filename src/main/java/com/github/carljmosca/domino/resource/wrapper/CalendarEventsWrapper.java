@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.ibm.domino.resource.wrapper;
+package com.github.carljmosca.domino.resource.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.ibm.domino.resource.CalendarEvent;
+import com.github.carljmosca.domino.resource.CalendarEvent;
 import java.util.ArrayList;
 import java.util.List;
 

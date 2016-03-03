@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.ibm.domino.resource;
+package com.github.carljmosca.domino.resource;
 
 /**
  *

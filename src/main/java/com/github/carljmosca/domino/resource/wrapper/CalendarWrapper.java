@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.ibm.domino.resource.wrapper;
+package com.github.carljmosca.domino.resource.wrapper;
 
-import com.github.ibm.domino.resource.Calendar;
+import com.github.carljmosca.domino.resource.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;

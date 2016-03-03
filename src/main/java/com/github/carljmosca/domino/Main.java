@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.ibm.domino;
+package com.github.carljmosca.domino;
 
-import com.github.ibm.domino.client.DominoRestClient;
-import com.github.ibm.domino.config.ClientConfig;
-import com.github.ibm.domino.resource.CalendarEvent;
+import com.github.carljmosca.domino.client.DominoRestClient;
+import com.github.carljmosca.domino.config.ClientConfig;
+import com.github.carljmosca.domino.resource.CalendarEvent;
 import java.util.List;
 import org.aeonbits.owner.ConfigFactory;
 
