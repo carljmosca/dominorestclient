@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -81,6 +82,39 @@ public class EventTime {
     @Override
     public String toString() {
         return "EventTime{" + "eDate=" + eDate + ", eTime=" + eTime + ", utc=" + utc + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.eDate);
+        hash = 13 * hash + Objects.hashCode(this.eTime);
+        hash = 13 * hash + (this.utc ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EventTime other = (EventTime) obj;
+        if (this.utc != other.utc) {
+            return false;
+        }
+        if (!Objects.equals(this.eDate, other.eDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.eTime, other.eTime)) {
+            return false;
+        }
+        return true;
     }
 
 }

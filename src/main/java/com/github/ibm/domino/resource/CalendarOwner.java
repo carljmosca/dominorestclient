@@ -5,6 +5,7 @@
  */
 package com.github.ibm.domino.resource;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -54,6 +55,43 @@ public class CalendarOwner {
     @Override
     public String toString() {
         return "CalendarOwner{" + "displayName=" + displayName + ", distinguishedName=" + distinguishedName + ", homeServer=" + homeServer + ", email=" + email + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.displayName);
+        hash = 97 * hash + Objects.hashCode(this.distinguishedName);
+        hash = 97 * hash + Objects.hashCode(this.homeServer);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CalendarOwner other = (CalendarOwner) obj;
+        if (!Objects.equals(this.displayName, other.displayName)) {
+            return false;
+        }
+        if (!Objects.equals(this.distinguishedName, other.distinguishedName)) {
+            return false;
+        }
+        if (!Objects.equals(this.homeServer, other.homeServer)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
     }
     
 }

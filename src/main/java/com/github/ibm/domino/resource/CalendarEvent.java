@@ -7,6 +7,7 @@ package com.github.ibm.domino.resource;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
 
 /**
  *
@@ -167,6 +168,67 @@ public class CalendarEvent {
     @Override
     public String toString() {
         return "CalendarEvent{" + "href=" + href + ", id=" + id + ", summary=" + summary + ", clazz=" + clazz + ", sequence=" + sequence + ", transparency=" + transparency + ", lastModified=" + lastModified + ", start=" + start + ", end=" + end + ", location=" + location + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.href);
+        hash = 19 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.summary);
+        hash = 19 * hash + Objects.hashCode(this.clazz);
+        hash = 19 * hash + this.sequence;
+        hash = 19 * hash + Objects.hashCode(this.transparency);
+        hash = 19 * hash + Objects.hashCode(this.lastModified);
+        hash = 19 * hash + Objects.hashCode(this.start);
+        hash = 19 * hash + Objects.hashCode(this.end);
+        hash = 19 * hash + Objects.hashCode(this.location);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CalendarEvent other = (CalendarEvent) obj;
+        if (this.sequence != other.sequence) {
+            return false;
+        }
+        if (!Objects.equals(this.href, other.href)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.summary, other.summary)) {
+            return false;
+        }
+        if (!Objects.equals(this.clazz, other.clazz)) {
+            return false;
+        }
+        if (!Objects.equals(this.transparency, other.transparency)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastModified, other.lastModified)) {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location)) {
+            return false;
+        }
+        if (!Objects.equals(this.start, other.start)) {
+            return false;
+        }
+        if (!Objects.equals(this.end, other.end)) {
+            return false;
+        }
+        return true;
     }
 
 }
