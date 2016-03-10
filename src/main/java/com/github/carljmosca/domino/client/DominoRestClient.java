@@ -5,6 +5,7 @@
  */
 package com.github.carljmosca.domino.client;
 
+import com.github.carljmosca.domino.config.ClientConfig;
 import com.github.carljmosca.domino.resource.Calendar;
 import com.github.carljmosca.domino.resource.CalendarEvent;
 import com.github.carljmosca.domino.resource.wrapper.CalendarEventsWrapper;
@@ -13,6 +14,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.aeonbits.owner.ConfigFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -22,6 +24,20 @@ import org.springframework.web.client.HttpClientErrorException;
  * @author moscac
  */
 public class DominoRestClient extends BaseClient {
+
+    public DominoRestClient() {
+
+    }
+    
+    @Override
+    protected void init() {
+        super.init();
+        ClientConfig clientConfig = ConfigFactory.create(ClientConfig.class);
+        setAddress(clientConfig.address());
+        setUsername(clientConfig.username());
+        setPassword(clientConfig.password());
+        setDatabase(clientConfig.database());
+    }
 
     public List<Calendar> getCalendars() {
 
